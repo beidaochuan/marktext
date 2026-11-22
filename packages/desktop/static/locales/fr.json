@@ -347,7 +347,10 @@
       "overwriteThemeFont": "Remplacer les paramètres de police du thème",
       "fontFamily": "Famille de police :",
       "fontSize": "Taille de police",
-      "lineHeight": "Hauteur de ligne"
+      "lineHeight": "Hauteur de ligne",
+      "showPageNumber": "Afficher les numéros de page",
+      "showPageNumberDetail": "Affiché au centre du pied de page. Nécessite une marge inférieure.",
+      "pageNumberFormat": "Format du numéro de page"
     },
     "theme": {
       "label": "Thème",
@@ -401,6 +404,10 @@
         "academic": "Académique",
         "default": "GitHub (par défaut)",
         "liber": "Liber"
+      },
+      "pageNumberFormats": {
+        "number": "1, 2, 3 …",
+        "numberOfTotal": "1 / 10"
       }
     }
   },

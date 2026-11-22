@@ -345,7 +345,10 @@
       "overwriteThemeFont": "覆盖主题字体设置",
       "fontFamily": "字体系列：",
       "fontSize": "字体大小",
-      "lineHeight": "行高"
+      "lineHeight": "行高",
+      "showPageNumber": "显示页码",
+      "showPageNumberDetail": "显示在页脚中央。需要设置下边距。",
+      "pageNumberFormat": "页码格式"
     },
     "theme": {
       "label": "主题",
@@ -401,6 +404,10 @@
         "academic": "学术",
         "default": "GitHub (默认)",
         "liber": "Liber"
+      },
+      "pageNumberFormats": {
+        "number": "1, 2, 3 …",
+        "numberOfTotal": "1 / 10"
       }
     }
   },

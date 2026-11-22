@@ -347,7 +347,10 @@
       "overwriteThemeFont": "覆寫主題字型設定",
       "fontFamily": "字型系列：",
       "fontSize": "字型大小",
-      "lineHeight": "行高"
+      "lineHeight": "行高",
+      "showPageNumber": "顯示頁碼",
+      "showPageNumberDetail": "顯示在頁尾中央。需要設定下邊距。",
+      "pageNumberFormat": "頁碼格式"
     },
     "theme": {
       "label": "主題",
@@ -401,6 +404,10 @@
         "academic": "學術",
         "default": "GitHub（預設）",
         "liber": "Liber"
+      },
+      "pageNumberFormats": {
+        "number": "1, 2, 3 …",
+        "numberOfTotal": "1 / 10"
       }
     }
   },

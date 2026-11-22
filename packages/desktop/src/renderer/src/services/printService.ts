@@ -1,3 +1,5 @@
+import { applyPageMarginFont } from '../util/pageNumber'
+
 class MarkdownPrint {
   private container: HTMLElement | null = null
 
@@ -29,6 +31,7 @@ class MarkdownPrint {
       document.fonts.load('16px "Noto Sans Math"', '⏜⏝')
     ])
     await document.fonts.ready
+    applyPageMarginFont(printContainer)
   }
 
   clearup(): void {

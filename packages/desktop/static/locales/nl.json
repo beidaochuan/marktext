@@ -347,7 +347,10 @@
       "overwriteThemeFont": "Thema-lettertype overschrijven",
       "fontFamily": "Lettertypefamilie:",
       "fontSize": "Lettergrootte",
-      "lineHeight": "Regelhoogte"
+      "lineHeight": "Regelhoogte",
+      "showPageNumber": "Paginanummers weergeven",
+      "showPageNumberDetail": "Getoond in het midden van de voettekst. Vereist een ondermarge.",
+      "pageNumberFormat": "Notatie paginanummer"
     },
     "theme": {
       "label": "Thema",
@@ -401,6 +404,10 @@
         "academic": "Academisch",
         "default": "GitHub (Standaard)",
         "liber": "Liber"
+      },
+      "pageNumberFormats": {
+        "number": "1, 2, 3 …",
+        "numberOfTotal": "1 / 10"
       }
     }
   },

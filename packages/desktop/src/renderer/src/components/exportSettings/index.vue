@@ -145,6 +145,22 @@
             :bool="showFrontMatter"
             :on-change="(value: unknown) => onSelectChange('showFrontMatter', value)"
           />
+          <div v-if="isPrintable">
+            <bool
+              :description="t('exportSettings.style.showPageNumber')"
+              :detailed-description="t('exportSettings.style.showPageNumberDetail')"
+              :bool="showPageNumber"
+              :on-change="(value: unknown) => onSelectChange('showPageNumber', value)"
+            />
+            <cur-select
+              v-if="showPageNumber"
+              class="page-number-format-select"
+              :description="t('exportSettings.style.pageNumberFormat')"
+              :value="pageNumberFormat"
+              :options="pageNumberFormats"
+              :on-change="(value: unknown) => onSelectChange('pageNumberFormat', value)"
+            />
+          </div>
         </el-tab-pane>
         <el-tab-pane
           :label="t('exportSettings.theme.label')"
@@ -291,7 +307,12 @@ import CurSelect from '@/prefComponents/common/select/index.vue'
 import FontTextBox from '@/prefComponents/common/fontTextBox/index.vue'
 import Range from '@/prefComponents/common/range/index.vue'
 import TextBox from '@/prefComponents/common/textBox/index.vue'
-import { getPageSizeList, getHeaderFooterTypes, getExportThemeList } from './exportOptions'
+import {
+  getPageSizeList,
+  getHeaderFooterTypes,
+  getExportThemeList,
+  getPageNumberFormats
+} from './exportOptions'
 import { useI18n } from 'vue-i18n'
 
 const { t } = useI18n()
@@ -328,6 +349,9 @@ const footerType = ref(0)
 const footerTextLeft = ref('')
 const footerTextCenter = ref('')
 const footerTextRight = ref('')
+const showPageNumber = ref(false)
+const pageNumberFormat = ref('numberOfTotal')
+const pageNumberFormats = ref(getPageNumberFormats())
 const headerFooterCustomize = ref(false)
 const headerFooterStyled = ref(true)
 const headerFooterFontSize = ref(12)
@@ -361,6 +385,8 @@ const persistableSettings: Record<string, Ref<unknown>> = {
   footerTextLeft,
   footerTextCenter,
   footerTextRight,
+  showPageNumber,
+  pageNumberFormat,
   headerFooterCustomize,
   headerFooterStyled,
   headerFooterFontSize,
@@ -398,6 +424,7 @@ const updateTranslations = () => {
   themeList.value = getExportThemeList()
   pageSizeList.value = getPageSizeList()
   headerFooterTypes.value = getHeaderFooterTypes()
+  pageNumberFormats.value = getPageNumberFormats()
 }
 
 const showDialog = (type: unknown) => {
@@ -469,6 +496,10 @@ const handleClicked = () => {
     })
   }
 
+  if (isPrintable.value && showPageNumber.value) {
+    options.pageNumber = pageNumberFormat.value
+  }
+
   if (headerFooterCustomize.value) {
     Object.assign(options, {
       headerFooterStyled: headerFooterStyled.value,
@@ -500,6 +531,8 @@ const onSelectChange = (key: string, value: unknown) => {
     footerTextLeft,
     footerTextCenter,
     footerTextRight,
+    showPageNumber,
+    pageNumberFormat,
     headerFooterCustomize,
     headerFooterStyled,
     headerFooterFontSize,
@@ -548,6 +581,8 @@ const loadThemesFromDisk = async () => {
 <style scoped>
 .print-settings-dialog {
   user-select: none;
+  /* Shared by the Export button and the page number format select so they line up. */
+  --export-control-width: 120px;
 }
 .row {
   margin-bottom: 8px;
@@ -574,6 +609,7 @@ const loadThemesFromDisk = async () => {
 }
 
 .button-controlls .button-primary {
+  width: var(--export-control-width);
   font-size: 14px;
 }
 
@@ -582,15 +618,16 @@ const loadThemesFromDisk = async () => {
 }
 </style>
 <style>
+.print-settings-dialog .page-number-format-select {
+  grid-template-columns: minmax(0, 1fr) var(--export-control-width);
+}
+
 .print-settings-dialog #pane-header .pref-text-box-item .el-input {
   width: 90% !important;
 }
 
 .print-settings-dialog .el-dialog__body {
   padding: 0 20px 20px 20px;
-}
-.print-settings-dialog .pref-select-item .el-select {
-  width: 240px;
 }
 .print-settings-dialog .el-tabs__content {
   max-height: 350px;

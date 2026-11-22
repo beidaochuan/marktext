@@ -134,6 +134,7 @@ import { moveImageToFolder, uploadImage } from '@/util/fileSystem'
 import { guessClipboardFilePath, copyImageToClipboard, readImagePng, clipboardImagePath } from '@/util/clipboard'
 import { dataURLToFile } from '@/util/dataURLToFile'
 import { getCssForOptions, type PdfCssOptions } from '@/util/pdf'
+import type { PageNumberFormat } from '@/util/pageNumber'
 import {
   getTocHeadingScrollTop,
   resolveTocHeadingElement,
@@ -1262,6 +1263,7 @@ interface ExportOptions {
   pageSizeWidth?: number
   pageSizeHeight?: number
   isLandscape?: boolean
+  pageNumber?: PageNumberFormat
   [key: string]: unknown
 }
 
@@ -1328,6 +1330,7 @@ const handleExport = async (options: unknown) => {
           header,
           footer,
           headerFooterStyled: headerFooterStyled as boolean | undefined,
+          pageNumber: opts.pageNumber,
           dir: props.textDirection
         })
         await printer!.renderMarkdown(html, props.textDirection)
@@ -1354,6 +1357,7 @@ const handleExport = async (options: unknown) => {
           header,
           footer,
           headerFooterStyled: headerFooterStyled as boolean | undefined,
+          pageNumber: opts.pageNumber,
           dir: props.textDirection
         })
         await printer!.renderMarkdown(html, props.textDirection)

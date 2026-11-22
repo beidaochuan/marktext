@@ -1,5 +1,6 @@
 import { t } from '@/i18n'
 import type { PrefSelectOption } from '@/prefComponents/common/types'
+import type { PageNumberFormat } from '@/util/pageNumber'
 
 export const getPageSizeList = (): PrefSelectOption<string>[] => [
   {
@@ -59,6 +60,17 @@ export const getHeaderFooterStyles = (): PrefSelectOption<number>[] => [
   {
     label: t('exportSettings.options.headerFooterStyles.styled'),
     value: 2
+  }
+]
+
+export const getPageNumberFormats = (): PrefSelectOption<PageNumberFormat>[] => [
+  {
+    label: t('exportSettings.options.pageNumberFormats.number'),
+    value: 'number'
+  },
+  {
+    label: t('exportSettings.options.pageNumberFormats.numberOfTotal'),
+    value: 'numberOfTotal'
   }
 ]
 

@@ -347,7 +347,10 @@
       "overwriteThemeFont": "Tema yazı tipi ayarlarının üzerine yaz",
       "fontFamily": "Yazı tipi ailesi:",
       "fontSize": "Yazı tipi boyutu",
-      "lineHeight": "Satır yüksekliği"
+      "lineHeight": "Satır yüksekliği",
+      "showPageNumber": "Sayfa numaralarını göster",
+      "showPageNumberDetail": "Alt bilginin ortasında gösterilir. Alt kenar boşluğu gerekir.",
+      "pageNumberFormat": "Sayfa numarası biçimi"
     },
     "theme": {
       "label": "Tema",
@@ -401,6 +404,10 @@
         "academic": "Akademik",
         "default": "GitHub (Varsayılan)",
         "liber": "Liber"
+      },
+      "pageNumberFormats": {
+        "number": "1, 2, 3 …",
+        "numberOfTotal": "1 / 10"
       }
     }
   },

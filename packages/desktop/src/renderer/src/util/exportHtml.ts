@@ -14,6 +14,7 @@ import { MarkdownToHtml } from '@muyajs/core'
 import { sanitize, EXPORT_DOMPURIFY_CONFIG } from './dompurify'
 import { resolveLocalLinkHref } from './resolveLinkHref'
 import { getHtmlToc, type HtmlTocOptions } from './pdf'
+import { getPageMarginFooterCss, PAGE_MARGIN_PROBE_HTML, type PageNumberFormat } from './pageNumber'
 
 export interface HeaderFooterPart {
   type?: number
@@ -31,6 +32,8 @@ export interface ExportStyledHtmlOptions {
   header?: HeaderFooterPart | null
   footer?: HeaderFooterPart | null
   headerFooterStyled?: boolean
+  /** Print page numbers in the footer's center cell; moves the footer into the page margin. */
+  pageNumber?: PageNumberFormat | null
   /** Editor text direction ('ltr' | 'rtl' | 'auto'); set on the exported <html>. */
   dir?: string
 }
@@ -163,12 +166,17 @@ export const exportStyledHTML = async(
   markdown: string,
   options: ExportStyledHtmlOptions = {}
 ): Promise<string> => {
-  const { title = '', tocOptions, header, footer, headerFooterStyled, dir } = options
+  const { title = '', tocOptions, header, headerFooterStyled, pageNumber, dir } = options
   let { extraCss = '' } = options
+  // With page numbers the footer is drawn by @page margin boxes, not the HTML footer.
+  const footer = pageNumber ? null : options.footer
 
   const appendHeaderFooter = !!header || !!footer
-  if (appendHeaderFooter) {
+  if (appendHeaderFooter || pageNumber) {
     extraCss = extraCss ? HEADER_FOOTER_CSS + extraCss : HEADER_FOOTER_CSS
+  }
+  if (pageNumber) {
+    extraCss += getPageMarginFooterCss(options.footer, pageNumber, headerFooterStyled)
   }
 
   // Render the engine's full HTML document. We re-extract its <article> body so
@@ -203,6 +211,9 @@ export const exportStyledHTML = async(
     output += createTableBody(`<article class="markdown-body">${article}</article>`)
     output += HF_TABLE_END
     bodyHtml = output
+  }
+  if (pageNumber) {
+    bodyHtml += PAGE_MARGIN_PROBE_HTML
   }
 
   return fullDoc.replace(/<body>[\s\S]*<\/body>/, () => `<body>\n  ${bodyHtml}\n</body>`)
